@@ -46,7 +46,7 @@ gulp.task('style', function() {
         )
       )
       .on('error', util.log)
-      .pipe(concat('style.min.css'))
+      .pipe(concat('app.min.css'))
       .pipe(gulp.dest(paths.prod.style));
 });
 

@@ -28,6 +28,7 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
-    "react": "^0.13.1"
+    "react": "^0.13.1",
+    "baobab": "~0.4.3"
   }
 }

@@ -1,0 +1,87 @@
+@HEADER_HEIGHT: 10%;
+
+.layout {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+
+  .header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: @HEADER_HEIGHT;
+    width: 100%;
+    border-bottom: 3px solid darken(@COLOR_THEME, 20%);
+
+    background-color: @COLOR_THEME;
+    text-align: center;
+
+    .toggleButton {
+      position: absolute;
+      top: 50%;
+      left: 2em;
+      height: 2em;
+      width: 2em;
+      margin-top: -1em;
+      cursor: pointer;
+
+      div {
+        position: absolute;
+        left: 0;
+        height: 0;
+        width: 100%;
+        border: 0.16em solid #222;
+        border-radius: 3px;
+
+        &:nth-child(1) {
+          top: 0;
+        }
+        &:nth-child(2) {
+          top: 50%;
+          margin-top: -0.08em;
+        }
+        &:nth-child(3) {
+          bottom: 0;
+        }
+      }
+    }
+
+    span.title {
+      position: absolute;
+      top: 50%;
+      margin-top: -0.5em;
+      line-height: 1em;
+
+      color: @COLOR_THEME_TEXT;
+      font-size: 2em;
+    }
+  }
+
+  .sideBar {
+    position: absolute;
+    top: @HEADER_HEIGHT;
+    height: 100% - @HEADER_HEIGHT;
+    width: 15em;
+    z-index: 2;
+
+    transition: left 0.7s;
+  }
+
+  .sideBar.on {
+    left: 0;
+  }
+
+  .sideBar.off {
+    left: -15em;
+  }
+
+  .contentView {
+    position: absolute;
+    top: @HEADER_HEIGHT;
+    left: 0;
+    height: 100% - @HEADER_HEIGHT;
+    width: 100%;
+  }
+}
