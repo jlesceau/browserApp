@@ -141,6 +141,18 @@ module.exports = {
           ]
         }
       ]
+    },
+    {
+      title: 'The Big Bang Theory',
+      seasons: []
+    },
+    {
+      title: 'The Mentalist',
+      seasons: []
+    },
+    {
+      title: 'The Walking Dead',
+      seasons: []
     }
   ],
   movies: [

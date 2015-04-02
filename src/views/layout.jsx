@@ -2,6 +2,7 @@
 
 var React = require('react'),
     state = require('../controller.js').state,
+    data = require('../controller.js').data,
     SideBar = require('./sideBar.jsx'),
     ContentView = {
       Series: require('./series.jsx'),
@@ -20,7 +21,8 @@ module.exports = React.createClass({
   },
 
   render: function() {
-    var View = ContentView[this.cursor.get('currentView')];
+    var View = ContentView[this.cursor.get('currentView')],
+        dataView = data[this.cursor.get('currentView').toLowerCase()];
 
     return (
       <div className="layout">
@@ -50,7 +52,7 @@ module.exports = React.createClass({
               'contentView share' :
               'contentView full'
           }>
-          <View />
+          <View data={ dataView } />
         </div>
       </div>
     );
