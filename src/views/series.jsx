@@ -10,6 +10,10 @@ module.exports = React.createClass({
 
   // Handlers
   serieClick: function(e) {
+    this.cursor.set(
+      'currentSerie',
+      e.currentTarget.attributes['data-id'].value
+    );
   },
 
   render: function() {
@@ -22,10 +26,13 @@ module.exports = React.createClass({
           var s = <div
                     key={ i }
                     data-id={ serie.title }
-                    className="serie"
+                    className={
+                      this.cursor.get('currentSerie') === serie.title ?
+                        'serie currentSerie' :
+                        'serie'
+                    }
                     style={{
-                      top: top + 'em',
-                      left: (15 + (i % 2) * 40) + '%'
+                      top: top + 'em'
                     }}
                     onClick={ this.serieClick }>
                     <div className="title">{ serie.title }</div>
@@ -39,6 +46,24 @@ module.exports = React.createClass({
                         );
                       }, 0) + ' episodes'
                     }</div>
+
+                    <div
+                      className={
+                        this.cursor.get('currentSerie') === serie.title ?
+                          'seasonsContent visible' :
+                          'seasonsContent'
+                      }>
+                      <ul>{
+                        serie.seasons.map(function(season, is) {
+                          return (
+                            <li
+                              key={ is }>
+                              <div>{ 'Season' + season.number }</div>
+                            </li>
+                          );
+                        }, this)
+                      }</ul>
+                    </div>
                   </div>;
 
           top += (i % 2) * 8;

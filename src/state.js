@@ -5,6 +5,8 @@ var Baobab = require('baobab');
 module.exports = new Baobab({
   state: {
     sideBar: false,
-    currentView: 'Series'
+    currentView: 'series',
+    currentSerie: null,
+    currentSeason: null
   }
 });

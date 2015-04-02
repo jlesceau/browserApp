@@ -5,8 +5,8 @@ var React = require('react'),
     data = require('../controller.js').data,
     SideBar = require('./sideBar.jsx'),
     ContentView = {
-      Series: require('./series.jsx'),
-      Movies: require('./movies.jsx')
+      series: require('./series.jsx'),
+      movies: require('./movies.jsx')
     };
 
 module.exports = React.createClass({
@@ -19,10 +19,19 @@ module.exports = React.createClass({
     this.cursor.set('sideBar', !this.cursor.get('sideBar'));
     state.commit();
   },
+  titleViewClick: function(e) {
+    this.cursor.set('currentSerie', null);
+    this.cursor.set('currentSeason', null);
+    state.commit();
+  },
+  titleSerieClick: function() {
+    this.cursor.set('currentSeason', null);
+    state.commit();
+  },
 
   render: function() {
     var View = ContentView[this.cursor.get('currentView')],
-        dataView = data[this.cursor.get('currentView').toLowerCase()];
+        dataView = data[this.cursor.get('currentView')];
 
     return (
       <div className="layout">
@@ -34,9 +43,32 @@ module.exports = React.createClass({
             <div></div>
             <div></div>
           </div>
-          <span className="title">{
-            this.cursor.get('currentView')
-          }</span>
+          <span className="title">
+            <span
+              className="titleView"
+              onClick={ this.titleViewClick }>{
+              this.cursor.get('currentView')
+            }</span>
+            {
+              (this.cursor.get('currentView') === 'series' &&
+                  this.cursor.get('currentSerie') !== null) ?
+                <span
+                  className="titleSerie"
+                  onClick={ this.titleSerieClick }>{
+                  ' > ' + this.cursor.get('currentSerie')
+                }</span> :
+                ''
+            }
+            {
+              (this.cursor.get('currentView') === 'series' &&
+                  this.cursor.get('currentSerie') !== null &&
+                  this.cursor.get('currentSeason') !== null) ?
+                <span className="titleSeason">{
+                  ' > Season ' + this.cursor.get('currentSeason')
+                }</span> :
+                ''
+            }
+          </span>
         </div>
         <div
           className={
