@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react'),
-    data = require('../data.js'),
+    state = require('../controller.js').state,
     SideBar = require('./sideBar.jsx'),
     ContentView = {
       Series: require('./series.jsx'),
@@ -10,13 +10,13 @@ var React = require('react'),
 
 module.exports = React.createClass({
   displayName: 'layout',
-  mixins: [ data.mixin ],
+  mixins: [ state.mixin ],
   cursor: [ 'state' ],
-  
+
   // Handlers
   toggleSideBar: function() {
     this.cursor.set('sideBar', !this.cursor.get('sideBar'));
-    data.commit();
+    state.commit();
   },
 
   render: function() {

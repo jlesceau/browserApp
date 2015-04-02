@@ -1,11 +1,11 @@
 'use strict';
 
 var React = require('react'),
-    data = require('./data.js'),
+    controller = require('./controller.js'),
     Layout = require('./views/layout.jsx');
 
 React.render(<Layout />, document.getElementById('container'));
 
 module.exports = {
-  data: data
+  controller: controller
 };
