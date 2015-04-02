@@ -1,4 +1,5 @@
 @HEADER_HEIGHT: 10%;
+@SIDEBAR_WIDTH: 15em;
 
 .layout {
   position: absolute;
@@ -22,9 +23,9 @@
       position: absolute;
       top: 50%;
       left: 2em;
-      height: 2em;
-      width: 2em;
-      margin-top: -1em;
+      height: 1.6em;
+      width: 1.6em;
+      margin-top: -0.8em;
       cursor: pointer;
 
       div {
@@ -32,7 +33,7 @@
         left: 0;
         height: 0;
         width: 100%;
-        border: 0.16em solid #222;
+        border: 0.15em solid #fff;
         border-radius: 3px;
 
         &:nth-child(1) {
@@ -40,7 +41,7 @@
         }
         &:nth-child(2) {
           top: 50%;
-          margin-top: -0.08em;
+          margin-top: -0.15em;
         }
         &:nth-child(3) {
           bottom: 0;
@@ -63,10 +64,10 @@
     position: absolute;
     top: @HEADER_HEIGHT;
     height: 100% - @HEADER_HEIGHT;
-    width: 15em;
+    width: @SIDEBAR_WIDTH;
     z-index: 2;
 
-    transition: left 0.7s;
+    transition: left 0.7s
   }
 
   .sideBar.on {
@@ -74,14 +75,24 @@
   }
 
   .sideBar.off {
-    left: -15em;
+    left: -@SIDEBAR_WIDTH;
   }
 
   .contentView {
     position: absolute;
     top: @HEADER_HEIGHT;
-    left: 0;
     height: 100% - @HEADER_HEIGHT;
+
+    transition: left 0.7s, width 0.7s;
+  }
+
+  .contentView.full {
+    left: 0;
     width: 100%;
+  }
+
+  .contentView.share {
+    left: @SIDEBAR_WIDTH;
+    width: calc(100% - @SIDEBAR_WIDTH);
   }
 }

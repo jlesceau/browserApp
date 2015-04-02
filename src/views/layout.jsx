@@ -44,7 +44,12 @@ module.exports = React.createClass({
           }>
           <SideBar />
         </div>
-      	<div className="contentView">
+      	<div
+          className={
+            this.cursor.get('sideBar') ?
+              'contentView share' :
+              'contentView full'
+          }>
           <View />
         </div>
       </div>
