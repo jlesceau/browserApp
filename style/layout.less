@@ -1,6 +1,5 @@
 @HEADER_HEIGHT: 10%;
 @SIDEBAR_WIDTH: 15em;
-@TRANSITION_TIME: 0.5s;
 
 .layout {
   position: absolute;
@@ -8,92 +7,4 @@
   left: 0;
   height: 100%;
   width: 100%;
-
-  .header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: @HEADER_HEIGHT;
-    width: 100%;
-    border-bottom: 3px solid darken(@COLOR_THEME, 20%);
-
-    background-color: @COLOR_THEME;
-    text-align: center;
-
-    .toggleButton {
-      position: absolute;
-      top: 50%;
-      left: 2em;
-      height: 1.6em;
-      width: 1.6em;
-      margin-top: -0.8em;
-      cursor: pointer;
-
-      div {
-        position: absolute;
-        left: 0;
-        height: 0;
-        width: 100%;
-        border: 0.15em solid #fff;
-        border-radius: 3px;
-
-        &:nth-child(1) {
-          top: 0;
-        }
-        &:nth-child(2) {
-          top: 50%;
-          margin-top: -0.15em;
-        }
-        &:nth-child(3) {
-          bottom: 0;
-        }
-      }
-    }
-
-    span.title {
-      position: absolute;
-      top: 50%;
-      margin-top: -0.5em;
-      line-height: 1em;
-
-      color: @COLOR_THEME_TEXT;
-      font-size: 2em;
-    }
-  }
-
-  .sideBar {
-    position: absolute;
-    top: @HEADER_HEIGHT;
-    height: 100% - @HEADER_HEIGHT;
-    width: @SIDEBAR_WIDTH;
-    z-index: 2;
-
-    transition: left @TRANSITION_TIME;
-  }
-
-  .sideBar.on {
-    left: 0;
-  }
-
-  .sideBar.off {
-    left: -@SIDEBAR_WIDTH;
-  }
-
-  .contentView {
-    position: absolute;
-    top: @HEADER_HEIGHT;
-    height: 100% - @HEADER_HEIGHT;
-
-    transition: left @TRANSITION_TIME, width @TRANSITION_TIME;
-  }
-
-  .contentView.full {
-    left: 0;
-    width: 100%;
-  }
-
-  .contentView.share {
-    left: @SIDEBAR_WIDTH;
-    width: calc(100% - @SIDEBAR_WIDTH);
-  }
 }

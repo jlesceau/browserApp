@@ -1,10 +1,29 @@
-.sideBarContent {
+.sideBar {
   position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
+  top: @HEADER_HEIGHT;
+  height: 100% - @HEADER_HEIGHT;
+  width: @SIDEBAR_WIDTH;
+  z-index: 2;
 
+  transition: left @TRANSITION_TIME;
   background-color: @COLOR_SIDEBAR;
-  color: @COLOR_SIDEBAR_TEXT;
+
+  &.on {
+    left: 0;
+  }
+
+  &.off {
+    left: -@SIDEBAR_WIDTH;
+  }
+
+  .sideBar-button {
+    height: 3em;
+    width: 100%;
+    line-height: 3em;
+    padding-left: 1.5em;
+
+    color: @COLOR_SIDEBAR_TEXT;
+    border-bottom: 1px dashed @COLOR_SIDEBAR_TEXT;
+  }
 }
+

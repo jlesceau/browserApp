@@ -1,71 +1,110 @@
 var gulp = require('gulp'),
     rimraf = require('rimraf'),
-    gulpif = require('gulp-if'),
     less = require('gulp-less'),
-    util = require('gulp-util'),
-    concat = require('gulp-concat'),
     reactify = require('reactify'),
+    rename = require('gulp-rename'),
+    buffer = require('vinyl-buffer'),
     browserify = require('browserify'),
     runSequence = require('run-sequence'),
-    source = require('vinyl-source-stream');
+    minifyCss = require('gulp-minify-css'),
+    transform = require('vinyl-transform'),
+    source = require('vinyl-source-stream'),
+    autoprefixer = require('gulp-autoprefixer');
 
-var paths = {
-  input: {
-    src: 'src/app.jsx',
-    style: 'style/app.less',
-    root: './src/app.jsx',
-    index: './*.html',
-    assets: 'assets/**/*'
-  },
-  prod: {
-    all: 'prod',
-    src: 'prod/src',
-    style: 'prod/style',
-    assets: 'prod/assets',
-    index: 'prod/*.html'
-  }
-};
 
-gulp.task('clean', function() {
-  rimraf.sync(paths.prod.all);
+/**
+ * DEV BUILD
+ */
+gulp.task('dev-clean', function() {
+  rimraf.sync('./dev');
 });
-
-gulp.task('assets', function() {
-  return gulp.src(paths.input.assets)
-      .pipe(gulp.dest(paths.prod.assets));
+gulp.task('dev-build-assets', function() {
+  return gulp.src([ './assets/*', './assets/**/*' ])
+    .pipe(gulp.dest('./dev/assets'));
 });
-
-gulp.task('style', function() {
-  return gulp.src(paths.input.style)
-      .pipe(
-        gulpif(
-          /[.]less$/,
-          less({
-            compress: true
-          })
-        )
-      )
-      .on('error', util.log)
-      .pipe(concat('app.min.css'))
-      .pipe(gulp.dest(paths.prod.style));
+gulp.task('dev-build-style', function() {
+  return gulp.src('./style/app.less')
+    .pipe(less())
+    .pipe(autoprefixer({
+      browsers: [ 'last 2 versions' ],
+      cascade: false
+    }))
+    .pipe(rename('app.css'))
+    .pipe(gulp.dest('./dev'));
 });
-
-gulp.task('src', function() {
+gulp.task('dev-build-src', function() {
   return browserify({
-      entries: paths.input.root,
-      debug: false
+      entries: './src/app.jsx',
+      standalone: 'app',
+      debug: true
     })
     .transform(reactify)
     .bundle()
-    .pipe(source('app.min.js'))
-    .pipe(gulp.dest(paths.prod.src));
+    .pipe(source('app.js'))
+    .pipe(buffer())
+    .pipe(gulp.dest('./dev'));
+});
+gulp.task('dev-build-html', function() {
+  return gulp.src('./app.html')
+    .pipe(gulp.dest('./dev'));
+});
+gulp.task('dev-build', function() {
+  runSequence(
+    'dev-clean',
+    'dev-build-assets',
+    'dev-build-style',
+    'dev-build-src',
+    'dev-build-html'
+  );
 });
 
-gulp.task('html', function() {
-  return gulp.src(paths.input.index)
-      .pipe(gulp.dest(paths.prod.all));
+
+/**
+ * PROD BUILD
+ */
+gulp.task('prod-clean', function() {
+  rimraf.sync('./prod');
+});
+gulp.task('prod-build-assets', function() {
+  return gulp.src([ './assets/*', './assets/**/*' ])
+    .pipe(gulp.dest('./prod/assets'));
+});
+gulp.task('prod-build-style', function() {
+  return gulp.src('./style/app.less')
+    .pipe(less())
+    .pipe(autoprefixer({
+      browsers: [ 'last 2 versions' ],
+      cascade: false
+    }))
+    .pipe(rename('app.css'))
+    .pipe(minifyCss())
+    .pipe(gulp.dest('./prod'));
+});
+gulp.task('prod-build-src', function() {
+  return browserify({
+      entries: './src/app.jsx',
+      standalone: 'app',
+      debug: true
+    })
+    .transform(reactify)
+    .bundle()
+    .pipe(source('app.js'))
+    .pipe(buffer())
+    .pipe(gulp.dest('./prod'));
+});
+gulp.task('prod-build-html', function() {
+  return gulp.src('./app.html')
+    .pipe(gulp.dest('./prod'));
+});
+gulp.task('prod-build', function() {
+  runSequence(
+    'prod-clean',
+    'prod-build-assets',
+    'prod-build-style',
+    'prod-build-src',
+    'prod-build-html'
+  );
 });
 
-gulp.task('default', function() {
-  runSequence('clean', 'assets', 'style', 'src', 'html');
-});
+
+gulp.task('default', [ 'dev-build' ]);

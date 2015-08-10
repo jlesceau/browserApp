@@ -1,0 +1,51 @@
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: @HEADER_HEIGHT;
+  width: 100%;
+  border-bottom: 3px solid darken(@COLOR_THEME, 20%);
+
+  background-color: @COLOR_THEME;
+  text-align: center;
+
+  .toggleButton {
+    position: absolute;
+    top: 50%;
+    left: 2em;
+    height: 1.6em;
+    width: 1.6em;
+    margin-top: -0.8em;
+    cursor: pointer;
+
+    div {
+      position: absolute;
+      left: 0;
+      height: 0;
+      width: 100%;
+      border: 0.15em solid #fff;
+      border-radius: 3px;
+
+      &:nth-child(1) {
+        top: 0;
+      }
+      &:nth-child(2) {
+        top: 50%;
+        margin-top: -0.15em;
+      }
+      &:nth-child(3) {
+        bottom: 0;
+      }
+    }
+  }
+
+  span.title {
+    position: absolute;
+    top: 50%;
+    margin-top: -0.5em;
+    line-height: 1em;
+
+    color: @COLOR_THEME_TEXT;
+    font-size: 2em;
+  }
+}

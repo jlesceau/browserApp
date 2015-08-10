@@ -1,3 +1,5 @@
-node_modules
-prod
-npm-debug.log
+node_modules/
+dev/
+prod/
+
+*.log
