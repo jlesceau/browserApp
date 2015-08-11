@@ -6,6 +6,10 @@ var Baobab = require('baobab'),
 module.exports = new Baobab({
   state: {
     sideBar: false,
+    disk: {
+      total: 1,
+      free: 1
+    },
     data: [],
     meta: {},
     currentView: 'series',

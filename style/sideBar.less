@@ -25,5 +25,47 @@
     color: @COLOR_SIDEBAR_TEXT;
     border-bottom: 1px dashed @COLOR_SIDEBAR_TEXT;
   }
+
+  .diskspace {
+    position: absolute;
+    bottom: 0;
+    height: 4em;
+    width: 100%;
+    padding-top: 1em;
+
+    .diskspace-status {
+      font-size: 0.8em;
+
+      text-align: center;
+      color: @COLOR_SIDEBAR_TEXT;
+    }
+
+    .diskspace-viz {
+      position: relative;
+      height: 1em;
+      width: 80%;
+      margin-left: 10%;
+
+      .disk-background {
+        height: 100%;
+        width: 100%;
+
+        border: 1px solid @COLOR_SIDEBAR_TEXT;
+        border-radius: 0.5em;
+        background-color: @COLOR_SIDEBAR_DISK_BACK;
+      }
+
+      .disk-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+
+        border: 1px solid @COLOR_SIDEBAR_TEXT;
+        border-radius: 0.5em;
+        background-color: @COLOR_SIDEBAR_DISK_BAR;
+      }
+    }
+  }
 }
 

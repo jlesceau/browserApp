@@ -45,7 +45,24 @@ controller.getMovies = function() {
     function(xhr, status, err) {
 
     }
-  )
+  );
+};
+
+controller.getDisk = function() {
+  djax({
+    type: 'GET',
+    url: api + 'disk'
+  }).then(
+    function(res) {
+      state.select('state').set('disk', res.result);
+    },
+    function(xhr, status, err) {
+      state.select('state').set('disk', {
+        total: 1,
+        free: 1
+      });
+    }
+  );
 };
 
 controller.downloadEpisode = function(path, stream) {

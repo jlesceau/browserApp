@@ -6,6 +6,7 @@ var React = require('react'),
     controller = require('./controller.js');
 
 controller.loadData();
+controller.getDisk();
 
 React.render(
   <Layout tree={ state } />,
