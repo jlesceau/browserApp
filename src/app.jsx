@@ -3,15 +3,14 @@
 var React = require('react'),
     state = require('./state.js'),
     Layout = require('./views/layout.jsx'),
-    controller = require('./controller.js'),
-    config = require('../conf/default.json');
+    controller = require('./controller.js');
 
-    React.render(
+controller.loadData();
+
+React.render(
   <Layout tree={ state } />,
   document.getElementById('container')
 );
-
-state.config = config;
 
 module.exports = {
   state: state,

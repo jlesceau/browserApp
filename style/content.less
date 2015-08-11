@@ -3,16 +3,16 @@
   top: @HEADER_HEIGHT;
   height: 100% - @HEADER_HEIGHT;
 
+  overflow-y: auto;
+  background-color: @COLOR_CONTENTVIEW;
   transition: left @TRANSITION_TIME,
               width @TRANSITION_TIME;
 
   &.full {
     left: 0;
-    width: 100%;
   }
 
   &.share {
     left: @SIDEBAR_WIDTH;
-    width: calc(100% - @SIDEBAR_WIDTH);
   }
 }

@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react'),
+    controller = require('../controller.js'),
     BaobabBranchMixin = require('baobab-react/mixins').branch;
 
 module.exports = React.createClass({
@@ -14,6 +15,7 @@ module.exports = React.createClass({
   // Handlers
   buttonClick: function(e) {
     this.cursors.currentView.set(e.currentTarget.attributes["data-id"].value);
+    controller.loadData();
   },
 
   render: function() {
