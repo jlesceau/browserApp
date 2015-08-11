@@ -48,6 +48,13 @@ controller.getMovies = function() {
   )
 };
 
+controller.downloadEpisode = function(path, stream) {
+  var a = document.createElement('a');
+  a.target = '_blank';
+  a.href = api + 'series/' + path + ( stream ? '/stream' : '' );
+  a.click();
+};
+
 controller.loadData = function() {
   switch (state.get('state', 'currentView')) {
     case 'series':
