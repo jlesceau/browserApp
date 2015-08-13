@@ -8,6 +8,15 @@ function formatNumber(num) {
   return ('' + num).length === 1 ? '0' + num : num;
 }
 
+function formatTitle(title) {
+  return title
+    .split(' ')
+    .map(function(w) {
+      return w.charAt(0).toUpperCase() + w.substr(1);
+    })
+    .join(' ');
+}
+
 module.exports = React.createClass({
   displayName: 'views/series',
   mixins: [ BaobabBranchMixin ],
@@ -58,7 +67,7 @@ module.exports = React.createClass({
                 </div>
                 <div className="serie-meta">
                   <div className="serie-title">{
-                    serie.title
+                    m.Title || formatTitle(serie.title)
                   }</div>
                   <div className="serie-year">{
                     m.Year || '-'
