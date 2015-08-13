@@ -17,7 +17,8 @@ controller.getSeries = function() {
       res.result.forEach(function(serie) {
         djax({
           type: 'GET',
-          url: 'http://www.omdbapi.com/?plot=short&r=json&t=' + serie.title
+          url: 'http://www.omdbapi.com/?plot=short&r=json&type=series&t=' +
+            serie.title
         }).then(
           function(res) {
             state.select('state', 'meta').set(serie.title, res);
