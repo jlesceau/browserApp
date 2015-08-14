@@ -45,17 +45,48 @@
         vertical-align: top;
 
         .serie-title {
-          height: 7em;
+          height: 5em;
 
           text-align: left;
           vertical-align: top;
         }
 
+        .serie-rating {
+          position: relative;
+          height: 2em;
+          width: 10em;
+
+          background-image: url('./assets/star.png');
+          background-repeat: repeat-x;
+          background-size: 1em auto;
+          background-position: left center;
+
+          .rating-mask {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 2em;
+
+            background-color: #fff;
+            opacity: 0.6;
+          }
+          .rating-hide {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 2em;
+
+            background-color: #fff;
+            opacity: 1;
+          }
+        }
+
         .serie-year {
-          height: 1em;
+          height: 2em;
+          line-height: 2em;
 
           text-align: left;
-          vertical-align: top;
+          vertical-align: middle;
         }
       }
 

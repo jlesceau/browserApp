@@ -66,6 +66,23 @@ module.exports = React.createClass({
                   <div className="serie-title">{
                     m.Title || utils.formatTitle(serie.title)
                   }</div>
+                  <div  className="serie-rating"
+                        title={
+                          'IMDb Rating : ' + ( m.imdbRating || '-' )
+                        }>
+                    <div  className={
+                            m.imdbRating ?
+                              'rating-mask' :
+                              'rating-hide'
+                          }
+                          style={{
+                            width: (
+                              m.imdbRating ?
+                                ( 10 - m.imdbRating ) * 10 :
+                                100
+                            ) + '%'
+                          }}></div>
+                  </div>
                   <div className="serie-year">{
                     m.Year || '-'
                   }</div>
