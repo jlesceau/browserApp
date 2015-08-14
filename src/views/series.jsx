@@ -19,8 +19,17 @@ module.exports = React.createClass({
   seasonClick: function(e) {
     var attr = e.currentTarget.attributes;
 
-    this.cursors.currentSerie.set(attr['data-serie'].value);
-    this.cursors.currentSeason.set(parseInt(attr['data-season'].value));
+    if (
+      this.state.currentSerie === attr['data-serie'].value &&
+      this.state.currentSeason === parseInt(attr['data-season'].value)
+    ) {
+      this.cursors.currentSerie.set(null);
+      this.cursors.currentSeason.set(null);
+    }
+    else {
+      this.cursors.currentSerie.set(attr['data-serie'].value);
+      this.cursors.currentSeason.set(parseInt(attr['data-season'].value));
+    }
   },
   getEpisode: function(e) {
     var attr = e.currentTarget.parentNode.attributes;
@@ -75,13 +84,20 @@ module.exports = React.createClass({
                             data-serie={ serie.title }
                             data-season={ season.number }
                             onClick={ this.seasonClick }>
-                        <div className="season-title button">{
+                        <div  className={
+                                'season-title button' + (
+                                  current ?
+                                    ' underlined' : ''
+                                )
+                              }>{
                           'Season ' + season.number
                         }</div>
                         <div className="season-episodes">{
                           !current ?
                             '' :
-                            season.episodes.map(function(episode, k) {
+                            season.episodes.sort(function(a, b) {
+                              return a.number - b.number;
+                            }).map(function(episode, k) {
                               return (
                                 <div  className="episode"
                                       key={ k }>
@@ -93,6 +109,11 @@ module.exports = React.createClass({
                                   }</div>
                                   {
                                     episode.files.map(function(file, l) {
+                                      var streamable = (
+                                        file.audioCodec !== 'DTS' &&
+                                        file.videoCodec !== 'XviD'
+                                      );
+
                                       return (
                                         <div  className="episode-file"
                                               key={ l }
@@ -100,16 +121,52 @@ module.exports = React.createClass({
                                               data-season={ season.number }
                                               data-episode={ episode.number }
                                               data-file={ l }>
-                                          <div  className="button"
+                                          <div className="picto">
+                                            <img  src={
+                                                    './assets/' +
+                                                    file.extension + '.png'
+                                                  } />
+                                          </div>
+                                          <div className="picto">
+                                            <div className="picto-txt">{
+                                              file.videoCodec
+                                            }</div>
+                                          </div>
+                                          <div className="picto">
+                                            <div className="picto-txt">{
+                                              file.audioCodec
+                                            }</div>
+                                          </div>
+                                          <div className="picto"></div>
+                                          <div className="picto">{
+                                            file.definition === 'sd' ?
+                                              '' :
+                                              <img  src={
+                                                      './assets/' +
+                                                      file.definition + '.png'
+                                                    } />
+                                          }</div>
+                                          <div className="picto"></div>
+                                          <div  className="picto button"
                                                 data-action="download"
+                                                title="Download"
                                                 onClick={
                                                   this.getEpisode
-                                                }>Download</div>
-                                          <div  className="button"
+                                                }>
+                                            <img src="./assets/download.png" />
+                                          </div>
+                                          <div  className="picto button"
                                                 data-action="stream"
+                                                title="Stream"
                                                 onClick={
-                                                  this.getEpisode
-                                                }>Stream</div>
+                                                  streamable ?
+                                                    this.getEpisode :
+                                                    undefined
+                                                }>{
+                                            !streamable ?
+                                              '' :
+                                              <img src="./assets/stream.png" />
+                                          }</div>
                                         </div>
                                       );
                                     }, this)

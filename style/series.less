@@ -70,6 +70,44 @@
         .serie-season {
           margin: 1em;
           padding: 0.5em;
+
+          .season-title.underlined {
+            border-bottom: 1px solid @COLOR_THEME;
+          }
+
+          .season-episodes {
+            .episode {
+              margin-top: 0.5em;
+
+              border-bottom: 1px solid @COLOR_CONTENTVIEW;
+
+              .episode-file {
+                height: 2em;
+                line-height: 2em;
+
+                .picto {
+                  display: inline-block;
+                  height: 2em;
+                  width: 2em;
+                  line-height: 2em;
+
+                  text-align: center;
+                  vertical-align: middle;
+
+                  img {
+                    max-height: 95%;
+                    max-width: 95%;
+
+                    vertical-align: middle;
+                  }
+                  .picto-txt {
+                    font-size: 0.8em;
+                    vertical-align: middle;
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
