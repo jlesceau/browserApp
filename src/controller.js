@@ -42,6 +42,22 @@ controller.getMovies = function() {
   }).then(
     function(res) {
       state.select('state').set('data', res.result);
+      state.select('state').set('meta', {});
+      state.commit();
+      res.result.forEach(function(movie) {
+        djax({
+          type: 'GET',
+          url: 'http://www.omdbapi.com/?plot=short&r=json&type=movie&t=' +
+            movie.title + '&y=' + movie.year
+        }).then(
+          function(res) {
+            state.select('state', 'meta').set(movie.title, res);
+          },
+          function(xhr, status, err) {
+
+          }
+        );
+      });
     },
     function(xhr, status, err) {
 
@@ -70,6 +86,13 @@ controller.downloadEpisode = function(path, stream) {
   var a = document.createElement('a');
   a.target = '_blank';
   a.href = api + 'series/' + path + ( stream ? '/stream' : '' );
+  a.click();
+};
+
+controller.downloadMovie = function(path, stream) {
+  var a = document.createElement('a');
+  a.target = '_blank';
+  a.href = api + 'movies/' + path + ( stream ? '/stream' : '/dl' );
   a.click();
 };
 

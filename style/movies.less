@@ -1,0 +1,141 @@
+.movies {
+  display: flex;
+  min-height: 100%;
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+
+  .movie {
+    display: flex;
+    width: 20em;
+    margin: 2em 1em;
+
+    background-color: @COLOR_CONTENT_BLOCK;
+
+    .movie-content {
+      display: block;
+      height: 100%;
+      width: 100%;
+
+      .movie-img {
+        display: inline-block;
+        height: 10em;
+        width: 8em;
+        line-height: 10em;
+
+        text-align: center;
+
+        img {
+          max-width: 7em;
+          max-height: 9em;
+
+          vertical-align: middle;
+        }
+      }
+
+      .movie-meta {
+        display: inline-block;
+        height: 10em;
+        width: 12em;
+        padding: 1em;
+
+        text-align: left;
+        vertical-align: top;
+
+        .movie-title {
+          height: 3em;
+          line-height: 1.5em;
+
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          text-align: left;
+          vertical-align: middle;
+        }
+
+        .movie-metascore {
+          height: 2em;
+          line-height: 2em;
+
+          text-align: left;
+          vertical-align: middle;
+
+          div {
+            font-size: 0.8em;
+          }
+        }
+
+        .movie-rating {
+          position: relative;
+          height: 2em;
+          width: 10em;
+
+          background-image: url('./assets/star.png');
+          background-repeat: repeat-x;
+          background-size: 1em auto;
+          background-position: left center;
+
+          .rating-mask {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 2em;
+
+            background-color: #fff;
+            opacity: 0.6;
+          }
+          .rating-hide {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 2em;
+
+            background-color: #fff;
+            opacity: 1;
+          }
+        }
+
+        .movie-year {
+          height: 2em;
+          line-height: 2em;
+
+          text-align: left;
+          vertical-align: middle;
+
+          div {
+            font-size: 0.8em;
+          }
+        }
+      }
+
+      .movie-file {
+        height: 4em;
+        line-height: 4em;
+        padding: 0 1em;
+
+        .picto {
+          display: inline-block;
+          height: 2em;
+          width: 2em;
+          line-height: 2em;
+
+          text-align: center;
+          vertical-align: middle;
+
+          img {
+            max-height: 95%;
+            max-width: 95%;
+
+            vertical-align: middle;
+          }
+          .picto-txt {
+            font-size: 0.8em;
+            vertical-align: middle;
+          }
+        }
+      }
+    }
+  }
+}
