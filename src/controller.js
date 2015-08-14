@@ -3,7 +3,8 @@
 var controller = {},
     djax = require('djax'),
     state = require('./state.js'),
-    api = state.get('config', 'api') + '/';
+    api = state.get('config', 'api') + '/',
+    levenshtein = require('fast-levenshtein');
 
 controller.getSeries = function() {
   djax({
@@ -17,11 +18,18 @@ controller.getSeries = function() {
       res.result.forEach(function(serie) {
         djax({
           type: 'GET',
-          url: 'http://www.omdbapi.com/?plot=short&r=json&type=series&t=' +
+          url: 'http://www.omdbapi.com/?plot=full&r=json&type=series&t=' +
             serie.title
         }).then(
           function(res) {
-            state.select('state', 'meta').set(serie.title, res);
+            if (
+              res.Response === "True" &&
+              levenshtein.get(
+                res.Title.toLowerCase(),
+                serie.title.toLowerCase()
+              ) < .3 * serie.title.length
+            )
+              state.select('state', 'meta').set(serie.title, res);
           },
           function(xhr, status, err) {
 
@@ -47,11 +55,18 @@ controller.getMovies = function() {
       res.result.forEach(function(movie) {
         djax({
           type: 'GET',
-          url: 'http://www.omdbapi.com/?plot=short&r=json&type=movie&t=' +
+          url: 'http://www.omdbapi.com/?plot=full&r=json&type=movie&t=' +
             movie.title + '&y=' + movie.year
         }).then(
           function(res) {
-            state.select('state', 'meta').set(movie.title, res);
+            if (
+              res.Response === "True" &&
+              levenshtein.get(
+                res.Title.toLowerCase(),
+                movie.title.toLowerCase()
+              ) < .3 * movie.title.length
+            )
+              state.select('state', 'meta').set(movie.title, res);
           },
           function(xhr, status, err) {
 

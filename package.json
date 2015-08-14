@@ -36,6 +36,7 @@
     "baobab": "^1.1.2",
     "baobab-react": "^0.1.1",
     "djax": "^1.1.0",
+    "fast-levenshtein": "^1.0.7",
     "react": "^0.13.1"
   }
 }
