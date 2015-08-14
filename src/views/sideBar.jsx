@@ -1,25 +1,9 @@
 'use strict';
 
 var React = require('react'),
+    utils = require('../utils.js'),
     controller = require('../controller.js'),
     BaobabBranchMixin = require('baobab-react/mixins').branch;
-
-function formatSpace(n) {
-  var display;
-
-  if (n > 1e12)
-    display = Math.round(n / 1e12) + ' To';
-  else if (n > 1e9)
-    display = Math.round(n / 1e9) + ' Go';
-  else if (n > 1e6)
-    display = Math.round(n / 1e6) + ' Mo';
-  else if (n > 1e3)
-    display = Math.round(n / 1e3) + ' Ko';
-  else
-    display = n + ' o'
-
-  return display;
-}
 
 module.exports = React.createClass({
   displayName: 'views/sideBar',
@@ -38,8 +22,10 @@ module.exports = React.createClass({
   },
 
   render: function() {
-    var total = formatSpace(this.state.disk.total),
-        used = formatSpace(this.state.disk.total - this.state.disk.free);
+    var total = utils.formatDiskSpace(this.state.disk.total),
+        used =  utils.formatDiskSpace(
+                  this.state.disk.total - this.state.disk.free
+                );
 
     return (
       <div  className={

@@ -2,6 +2,7 @@
 
 var React = require('react'),
     state = require('./state.js'),
+    utils = require('./utils.js'),
     Layout = require('./views/layout.jsx'),
     controller = require('./controller.js');
 
@@ -15,5 +16,6 @@ React.render(
 
 module.exports = {
   state: state,
+  utils: utils,
   controller: controller
 };

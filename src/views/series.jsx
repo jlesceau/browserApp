@@ -1,21 +1,9 @@
 'use strict';
 
 var React = require('react'),
+    utils = require('../utils.js'),
     controller = require('../controller.js'),
     BaobabBranchMixin = require('baobab-react/mixins').branch;
-
-function formatNumber(num) {
-  return ('' + num).length === 1 ? '0' + num : num;
-}
-
-function formatTitle(title) {
-  return title
-    .split(' ')
-    .map(function(w) {
-      return w.charAt(0).toUpperCase() + w.substr(1);
-    })
-    .join(' ');
-}
 
 module.exports = React.createClass({
   displayName: 'views/series',
@@ -67,7 +55,7 @@ module.exports = React.createClass({
                 </div>
                 <div className="serie-meta">
                   <div className="serie-title">{
-                    m.Title || formatTitle(serie.title)
+                    m.Title || utils.formatTitle(serie.title)
                   }</div>
                   <div className="serie-year">{
                     m.Year || '-'
@@ -98,8 +86,10 @@ module.exports = React.createClass({
                                 <div  className="episode"
                                       key={ k }>
                                   <div className="episode-title">{
-                                    'S' + formatNumber(season.number) +
-                                    'E' + formatNumber(episode.number)
+                                    'S' +
+                                    utils.formatSeriesNumber(season.number) +
+                                    'E' +
+                                    utils.formatSeriesNumber(episode.number)
                                   }</div>
                                   {
                                     episode.files.map(function(file, l) {
