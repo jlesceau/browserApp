@@ -84,4 +84,14 @@ controller.loadData = function() {
   }
 };
 
+controller.clearState = function() {
+  state.select('state')
+    .set('currentSerie', null)
+    .set('currentSeason', null)
+    .set('currentMovie', null)
+    .set('data', [])
+    .set('meta', {});
+  state.commit();
+};
+
 module.exports = controller;

@@ -33,6 +33,7 @@ module.exports = React.createClass({
   // Handlers
   buttonClick: function(e) {
     this.cursors.currentView.set(e.currentTarget.attributes["data-id"].value);
+    controller.clearState();
     controller.loadData();
   },
 
