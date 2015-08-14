@@ -60,12 +60,18 @@ module.exports = React.createClass({
                   key={ i }>
               <div className="serie-content">
                 <div className="serie-img">
-                  <img src={ m.Poster } />
+                  <img src={ m.Poster || './assets/no-poster.png' } />
                 </div>
                 <div className="serie-meta">
                   <div className="serie-title">{
                     m.Title || utils.formatTitle(serie.title)
                   }</div>
+                  <div className="serie-metascore">
+                    <div>{
+                      m.Metascore ?
+                        'Metascore : ' + m.Metascore : ''
+                    }</div>
+                  </div>
                   <div  className="serie-rating"
                         title={
                           'IMDb Rating : ' + ( m.imdbRating || '-' )
@@ -83,9 +89,11 @@ module.exports = React.createClass({
                             ) + '%'
                           }}></div>
                   </div>
-                  <div className="serie-year">{
-                    m.Year || '-'
-                  }</div>
+                  <div className="serie-year">
+                    <div>{
+                      m.Year || ''
+                    }</div>
+                  </div>
                 </div>
                 <div className="serie-seasons">{
                   serie.seasons.map(function(season, j) {
